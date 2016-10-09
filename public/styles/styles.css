@@ -1,0 +1,44 @@
+body {
+  background: linear-gradient(to right, darkred, tomato, orange, yellow);
+}
+
+h1 {
+  margin-left: 50px;
+}
+.solar {
+  height: 40px;
+  width: 7px;
+  background-color: #333333;
+  margin-top: 20px;
+  margin-left: 10px;
+  border: 4px solid black;
+}
+.container {
+  border: 6px solid black;
+  background: linear-gradient(to bottom, navy 30%, #777777);
+}
+h3 {
+  border: 2px solid black;
+  background-color: gray;
+  color: white;
+  height: 45px;
+  padding-top: 5px;
+}
+button {
+  height: 40px;
+  background: linear-gradient(to bottom, slategray, lightgray);
+}
+button:hover {
+  box-shadow: 0 0 10px black;
+  background: linear-gradient(to bottom, darkslategray 25%, gray);
+}
+.col-xs-2, .col-xs-4 {
+  margin-right: 3px;
+  margin-top: 3px;
+}
+.col-xs-4 {
+  margin-left: 2px;
+}
+.display {
+  text-align: right;
+}
