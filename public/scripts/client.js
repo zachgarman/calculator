@@ -149,7 +149,7 @@ function getResult() {
     }
   });
 }
-
+// happy flashing lights whenever you press a button!
 function buttonFlash () {
   $('.solar').css({
     backgroundColor: '#444444'
