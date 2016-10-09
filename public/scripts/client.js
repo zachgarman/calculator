@@ -4,7 +4,7 @@ var buttons = [
   [4, 5, 6, '-'],
   [7, 8, 9, '*'],
   [0, '.', 'c', '/'],
-  ['!', '=']
+  ['=', '!', 'X^Y', '^2']
 ];
 
 // establish names for each operator for server calls
@@ -13,7 +13,9 @@ var operators = {
   '-': 'subtract',
   '*': 'multiply',
   '/': 'divide',
-  '!': 'factorial'
+  '!': 'factorial',
+  '^2': 'square',
+  'X^Y': 'powerOf'
 };
 
 // an object is used to store all of the button clicks
@@ -22,8 +24,10 @@ var calculation = {
   secondVal: '',
   operator: ''
 };
-
+// afterOperator allows the second input to be made.
+// afterCalc lets the calculations continue on continuously.
 var afterOperator = false;
+var afterCalc = false;
 
 $(function () {
   //create the layout of the buttons
@@ -31,6 +35,7 @@ $(function () {
 
   //listener to determine button clicks
   $('.container').on('click', 'button', function () {
+    buttonFlash();
     var buttonPressed = $(this).attr('id');
     console.log(buttonPressed);
 
@@ -64,7 +69,16 @@ function createNumbers(array) {
 // Function to update the calculation object and to
 // send it along after '=' or '!'
 function updateCalc (id, val) {
-  // only allow 1 decimal point to be added
+  // if a calculation has been done, clear out the calculator and start
+  // over if number or a '.' are pressed.  If an operator is pressed,
+  // continue with the calculation using the previous value as
+  // firstVal and the pressed operator as the current operator.
+  if (afterCalc == true && afterOperator == false) {
+    if (id >= 0 || id == '.') {
+      resetCalc();
+    }
+  }
+    // only allow 1 decimal point to be added
   if (id == '.') {
     if (calculation[val].indexOf('.') == -1) {
       calculation[val] += id;
@@ -92,7 +106,8 @@ function updateCalc (id, val) {
     } else if (calculation.firstVal != '' && calculation.firstVal != '-') {
       calculation.operator = id;
       afterOperator = true;
-      if (id == '!') {
+      afterCalc = false;
+      if (id == '!' || id == '^2') {
         getResult();
       }
     }
@@ -106,6 +121,7 @@ function resetCalc () {
   calculation.operator = '';
   calculation.destination = '';
   afterOperator = false;
+  afterCalc = false;
 }
 
 // Figures out which operator was used, and gets the matching
@@ -128,11 +144,19 @@ function getResult() {
     success: function(total) {
       $('.display').text(total.value);
       resetCalc();
-      // calculation.firstVal = total.value;
+      calculation.firstVal = total.value;
+      afterCalc = true;
     }
   });
 }
 
-
-// make a function to reset calc and clear it on first
-// click after = except for =.
+function buttonFlash () {
+  $('.solar').css({
+    backgroundColor: '#444444'
+  });
+  setTimeout(function() {
+    $('.solar').css({
+      backgroundColor: '#333333'
+    });
+  }, 100);
+}

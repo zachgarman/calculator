@@ -4,28 +4,18 @@ var router = express.Router();
 
 router.post('/', function (req, res) {
   var number = parseInt(req.body.firstVal);
-  if (number < 0 || number != parseFloat(req.body.firstVal)) {
-    number = 'E';
-  } else {
-    var total = 1;
-    for (var i = number; i > 0; i--) {
-      total = total * i;
-    }
-    number = total;
-  }
+  number *= number;
 
-  var factorial = {
+  var square = {
     'value': number
   }
 
   // return 'E' if a second operator was typed
   if(req.body.secondVal != '') {
-    factorial.value = 'E';
+    square.value = 'E';
   }
 
-
-  res.send(factorial);
-
+  res.send(square);
 
 });
 

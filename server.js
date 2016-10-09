@@ -6,6 +6,8 @@ var divisionRouter = require('./routes/divide');
 var multiplicationRouter = require('./routes/multiply');
 var subtractionRouter = require('./routes/subtract');
 var factorialRouter = require('./routes/factorial');
+var squareRouter = require('./routes/square');
+var powerOfRouter = require('./routes/powerOf');
 
 var app = express();
 
@@ -19,6 +21,8 @@ app.use('/divide', divisionRouter);
 app.use('/multiply', multiplicationRouter);
 app.use('/subtract', subtractionRouter);
 app.use('/factorial', factorialRouter);
+app.use('/square', squareRouter);
+app.use('/powerOf', powerOfRouter);
 
 app.get('/', function (req, res) {
   var fileName = path.join(__dirname, 'public/views/index.html');

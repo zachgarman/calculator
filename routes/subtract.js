@@ -6,6 +6,11 @@ router.post('/', function (req, res) {
   var difference = {
     'value': parseFloat(req.body.firstVal) - parseFloat(req.body.secondVal)
   };
+  // return 'E' if no second operator was typed
+  if(req.body.secondVal == '') {
+    difference.value = 'E';
+  }
+
   res.send(difference);
 });
 
