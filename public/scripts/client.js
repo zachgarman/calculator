@@ -142,6 +142,9 @@ function getResult() {
     url: '/' + getDest(),
     data: calculation,
     success: function(total) {
+      if (total.value == null) {
+        total.value = 'E';
+      }
       $('.display').text(total.value);
       resetCalc();
       calculation.firstVal = total.value;
